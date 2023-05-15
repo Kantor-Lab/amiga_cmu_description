@@ -121,6 +121,49 @@
 <xacro:clamp name="front_left" />
 <xacro:clamp name="rear_left"  />
 
+<xacro:macro name="multiclamp" params="name x y z raw pitch yaw">
+	<link name="multiclamp_${name}_link">
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="${raw} ${pitch} ${yaw}"/>
+            <mass value="0.5"/>
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="${raw} ${pitch} ${yaw}"/>
+            <geometry>
+                <mesh filename="package://amiga_cmu_description/meshes/MultiClamp/MultiClamp.obj" scale="1.2 1.2 1.2"/>
+            </geometry>
+            <material name="black">
+                <color rgba=".0 .0 0.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <mesh filename="package://amiga_cmu_description/meshes/MultiClamp/MultiClamp.obj" scale="1.2 1.2 1.2"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="multiclamp_${name}_joint" type="fixed">
+        <origin xyz="${x} ${y} ${z}" rpy="0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="multiclamp_${name}_link"/>
+        <axis xyz="0.0 0.0 0.0"/>
+    </joint>
+</xacro:macro>
+<xacro:multiclamp name="multi1" x="0.6096" y =" 0.18" z = ".435" raw = "-1.571" pitch ="0.0" yaw = "0"/>
+<xacro:multiclamp name="multi2" x="0.6096" y =" 0.18" z = ".435" raw = "-1.571" pitch ="3.14" yaw = "1.571"/>
+<xacro:multiclamp name="multi3" x="0.6096" y =" -0.18" z = ".435" raw = "-1.571" pitch ="0.0" yaw = "0"/>
+<xacro:multiclamp name="multi4" x="0.6096" y =" -0.18" z = ".435" raw = "-1.571" pitch ="3.14" yaw = "1.571"/>
+<xacro:multiclamp name="multi5" x="-0.6096" y =" 0.18" z = ".435" raw = "-1.571" pitch ="0.0" yaw = "0"/>
+<xacro:multiclamp name="multi6" x="-0.6096" y =" 0.18" z = ".435" raw = "-1.571" pitch ="3.14" yaw = "1.571"/>
+<xacro:multiclamp name="multi7" x="-0.6096" y =" -0.18" z = ".435" raw = "-1.571" pitch ="0.0" yaw = "0"/>
+<xacro:multiclamp name="multi8" x="-0.6096" y =" -0.18" z = ".435" raw = "-1.571" pitch ="3.14" yaw = "1.571"/>
+<xacro:multiclamp name="multi9" x="-0.43" y =" 0.20" z = ".46" raw = "0.0" pitch ="0.0" yaw = "0.0"/>
+<xacro:multiclamp name="multi10" x="-0.43" y =" 0.20" z = ".46" raw = "0.0" pitch ="1.571" yaw = "3.14"/>
+<xacro:multiclamp name="multi11" x="-0.43" y =" -0.20" z = ".46" raw = "0.0" pitch ="0.0" yaw = "3.14"/>
+<xacro:multiclamp name="multi12" x="-0.43" y =" -0.20" z = ".46" raw = "0.0" pitch ="1.571" yaw = "0.0"/>
 <!-- All crossbeams links and joints -->
 <xacro:macro name="crossbeam" params="name x y z yaw ">
 
@@ -161,7 +204,8 @@
 <xacro:crossbeam name="left2"  x="0.0" y =" 0.824" z = "0.36" yaw = "1.571" />
 <xacro:crossbeam name="right1"  x="0.0" y =" -0.70" z = "0.36" yaw = "1.571" />
 <xacro:crossbeam name="right2"  x="0.0" y =" -0.824" z = "0.36" yaw = "1.571" />
-
+<xacro:crossbeam name="middle1"  x="0.0" y =" 0.18" z = "0.455" yaw = "1.571" />
+<xacro:crossbeam name="middle2"  x="0.0" y =" -0.18" z = "0.455" yaw = "1.571" />
 
 <xacro:macro name="tire" params="name">
 	<link name="tire_${name}_link">
@@ -200,13 +244,75 @@
 <xacro:tire name="front_left"  />
 <xacro:tire name="rear_left"   />
 
+<!-- Ebox -->
+<link name="Ebox_link">
+    <inertial>
+        <origin xyz="-.8 -0.31 0.0" rpy="0.0 0.0 0.0"/>
+        <mass value="0.5"/>
+        <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+    <visual name="">
+        <origin xyz="-.8 -0.31 0.0" rpy="-1.571 0 -1.571"/>
+        <geometry>
+            <mesh filename="package://amiga_cmu_description/meshes/Ebox/Ebox.obj" scale="1.0 1.0 1.0"/>
+        </geometry>
+        <material name="black">
+            <color rgba=".0 .0 0.0 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <mesh filename="package://amiga_cmu_description/meshes/Ebox/Ebox.obj" scale="1.0 1.0 1.0"/>
+        </geometry>
+    </collision>
+</link>
+
+<joint name="Ebox_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.05" rpy="0 0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="Ebox_link"/>
+    <axis xyz="0.0 0.0 0.0"/>
+</joint>
+
+<!-- Mounting Plate -->
+<link name="plate_link">
+    <inertial>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <mass value="0.5"/>
+        <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+    <visual name="">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <mesh filename="package://amiga_cmu_description/meshes/plate/plate.obj" scale="1.0 1.0 1.0"/>
+        </geometry>
+        <material name="black">
+            <color rgba=".0 .0 0.0 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <mesh filename="package://amiga_cmu_description/meshes/plate/plate.obj" scale="1.0 1.0 1.0"/>
+        </geometry>
+    </collision>
+</link>
+
+<joint name="plate_joint" type="fixed">
+    <origin xyz="0.0 -0.762 0.38" rpy="0 0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="plate_link"/>
+    <axis xyz="0.0 0.0 0.0"/>
+</joint>
+
 <xacro:arg name="prefix" default=""/>
   <xacro:arg name="ros_namespace" default="xarm"/>
   <xacro:arg name="limited" default="false"/>
   <xacro:arg name="effort_control" default="false"/>
   <xacro:arg name="velocity_control" default="false"/>
-  <xacro:arg name="attach_to" default="base_link"/>
-  <xacro:arg name="xyz" default="0 -0.762 0.385"/>
+  <xacro:arg name="attach_to" default="plate_link"/>
+  <xacro:arg name="xyz" default="0 0.0 0.0"/>
   <xacro:arg name="rpy" default="0 0 -1.5"/>  
 
   <xacro:arg name="add_other_geometry" default="false"/>
@@ -241,4 +347,68 @@
     geometry_mesh_filename="$(arg geometry_mesh_filename)"
     geometry_mesh_origin_xyz="$(arg geometry_mesh_origin_xyz)" geometry_mesh_origin_rpy="$(arg geometry_mesh_origin_rpy)"
     geometry_mesh_tcp_xyz="$(arg geometry_mesh_tcp_xyz)" geometry_mesh_tcp_rpy="$(arg geometry_mesh_tcp_rpy)" />
+
+<!-- end effector-->
+<link name="link_endeffector">
+    <inertial>
+        <origin xyz="0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <mass value="0.5"/>
+        <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+    </inertial>
+    <visual name="">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <mesh filename="package://amiga_cmu_description/meshes/brush/brush.obj" scale="2.0 2.0 2.0"/>
+        </geometry>
+        <material name="black">
+            <color rgba=".0 .0 0.0 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <mesh filename="package://amiga_cmu_description/meshes/brush/brush.obj" scale="1.0 1.0 1.0"/>
+        </geometry>
+    </collision>
+</link>
+
+<joint name="eef_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.01" rpy="0 0.0 0.0"/>
+    <parent link="link_eef"/>
+    <child link="link_endeffector"/>
+    <axis xyz="0.0 0.0 0.0"/>
+</joint>
+
+<gazebo>
+    
+    <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+      <updateRate>10.0</updateRate>
+      <robotNamespace>/</robotNamespace>
+      <leftFrontJoint>tire_front_left_joint</leftFrontJoint>
+      <rightFrontJoint>tire_front_right_joint</rightFrontJoint>
+      <leftRearJoint>tire_rear_left_joint</leftRearJoint>
+      <rightRearJoint>tire_rear_right_joint</rightRearJoint>
+      <wheelSeparation>1.2192</wheelSeparation>
+      <wheelDiameter>0.22</wheelDiameter>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <torque>10</torque>
+
+      <topicName>cmd_vel</topicName>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+
+      <commandTopic>cmd_vel</commandTopic>
+      <topic_name_twist>cmd_vel</topic_name_twist>
+      <topic_name_odometry>odom</topic_name_odometry>
+      <topic_name_joint>joint</topic_name_joint>
+
+      <broadcastTF>true</broadcastTF>
+
+      <covariance_x>0.0001</covariance_x>
+      <covariance_y>0.0001</covariance_y>
+      <covariance_yaw>0.01</covariance_yaw>
+
+    </plugin>
+
+  </gazebo>
 </robot>

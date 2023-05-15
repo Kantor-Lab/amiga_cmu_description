@@ -16,7 +16,7 @@
   <rosparam if="$(arg add_gripper)" file="$(find xarm_controller)/config/gripper_gazebo_ros_control.yaml" command="load"/>
   <!-- startup simulated world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find xarm_gazebo)/worlds/flat_terrain_easy.world"/>
+    <arg name="world_name" value="$(find xarm_gazebo)/worlds/empty.world"/>
     <arg name="gui" value="$(arg gui)"/>
   </include>
 
@@ -36,7 +36,7 @@
       xyz:=$(arg xyz) 
       rpy:=$(arg rpy)     	
    	  "/>
-<param name="amiga_description" command="xacro '$(find amiga_cmu_description)/urdf/farm-ng_test.xacro'"/>
+<param name="amiga_description" command="xacro '$(find amiga_cmu_description)/urdf/farm-ng.urdf.xacro'"/>
 
   <!-- spawn robot model in gazebo, located on the table -->
   
