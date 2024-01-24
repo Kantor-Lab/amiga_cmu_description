@@ -3,7 +3,7 @@
 
 
 
-<link name="base_footprint"/>
+
 
 <link name="base_link">
     
@@ -24,23 +24,19 @@
             <!-- <mesh filename="package://amiga_cmu_description/meshes/body_zeroed.stl" scale="1.0 1.0 1.0"/> -->
             <!--mesh filename="package://amiga_cmu_description/meshes/body-object/body-object-zeroed.obj" scale="1.0 1.0 1.0"/!-->
         </geometry>
-        <surface>
-		<contact>
-      			<collide_without_contact>true</collide_without_contact>
-    		</contact>
-	</surface>
     </collision>
 </link>
 
-<joint name="base_joint" type="fixed">
-    <origin xyz="0.0 0.0 -0.22" rpy="0.0 0.0 0.0"/>
-    <parent link="base_link"/>
-    <child link="base_footprint"/>
-    <axis xyz="0.0 0.0 0.0"/>
-</joint>
+<link name="base_footprint"/>
 
-<!-- All Wheel links and joints -->
-<link name="inertial_link">
+  <joint name="base_footprint_joint" type="fixed">
+    <origin xyz="0 0 0.22" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="base_footprint" />
+  </joint>
+
+  <!-- Inertial link stores the robot's inertial information -->
+  <link name="inertial_link">
     <inertial>
         <origin xyz="0.0 0.0 0.22" rpy="0.0 0.0 0.0"/>
         <mass value="158.0"/>
@@ -55,23 +51,17 @@
     <parent link="base_link" />
     <child link="inertial_link" />
   </joint>
-  
-  <link name="imu_link"/>
-  <joint name="imu_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0" />
-    <parent link="base_link" />
-    <child link="imu_link" />
-  </joint>
-  <gazebo reference="imu_link">
-  </gazebo>
+<!-- All Wheel links and joints -->
+
+
 <xacro:macro name="wheel" params="name x y yaw">
 
     <link name="wheel_${name}_link">
-        <inertial>
+        <!--inertial>
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 ${yaw}"/>
             <mass value="0.5"/>
             <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
-        </inertial>
+        </inertial-->
         <visual name="">
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 ${yaw}"/>
             <geometry>
@@ -186,7 +176,7 @@
 <xacro:multiclamp name="multi11" x="-0.43" y =" -0.20" z = ".46" raw = "0.0" pitch ="0.0" yaw = "3.14"/>
 <xacro:multiclamp name="multi12" x="-0.43" y =" -0.20" z = ".46" raw = "0.0" pitch ="1.571" yaw = "0.0"/>
 <!-- All crossbeams links and joints -->
-<xacro:macro name="crossbeam" params="name x y z yaw ">
+<xacro:macro name="crossbeam" params="name x y z yaw scale">
 
     <link name="crossbeam_${name}_link">
         <inertial>
@@ -197,7 +187,7 @@
         <visual name="">
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 ${yaw}"/>
             <geometry>
-                <mesh filename="package://amiga_cmu_description/meshes/LCrossbeam/LCrossbeam.obj" scale="1.0 1.3 1.0"/>
+                <mesh filename="package://amiga_cmu_description/meshes/LCrossbeam/LCrossbeam.obj" scale="1.0 ${scale} 1.0"/>
             </geometry>
             <material name="black">
                 <color rgba=".0 .0 0.0 1.0"/>
@@ -206,7 +196,7 @@
         <collision>
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 ${yaw}"/>
             <geometry>
-                <mesh filename="package://amiga_cmu_description/meshes/LCrossbeam/LCrossbeam.obj" scale="1.0 1.3 1.0"/>
+                <mesh filename="package://amiga_cmu_description/meshes/LCrossbeam/LCrossbeam.obj" scale="1.0 ${scale} 1.0"/>
             </geometry>
         </collision>
     </link>
@@ -219,21 +209,21 @@
     </joint>
 
 </xacro:macro>
-<xacro:crossbeam name="back"  x="0.6096" y =" 0.0" z = "0.417" yaw = "0.0" />
-<xacro:crossbeam name="front"  x="-0.6096" y =" 0.0" z = "0.417" yaw = "0.0" />
-<xacro:crossbeam name="left1"  x="0.0" y =" 0.70" z = "0.36" yaw = "1.571" />
-<xacro:crossbeam name="left2"  x="0.0" y =" 0.824" z = "0.36" yaw = "1.571" />
-<xacro:crossbeam name="right1"  x="0.0" y =" -0.70" z = "0.36" yaw = "1.571" />
-<xacro:crossbeam name="right2"  x="0.0" y =" -0.824" z = "0.36" yaw = "1.571" />
-<xacro:crossbeam name="middle1"  x="0.0" y =" 0.18" z = "0.455" yaw = "1.571" />
-<xacro:crossbeam name="middle2"  x="0.0" y =" -0.18" z = "0.455" yaw = "1.571" />
+<xacro:crossbeam name="back"  x="0.6096" y =" 0.0" z = "0.417" yaw = "0.0" scale = "1.3"/>
+<xacro:crossbeam name="front"  x="-0.6096" y =" 0.0" z = "0.417" yaw = "0.0" scale = "1.3"/>
+<xacro:crossbeam name="left1"  x="0.0" y =" 0.70" z = "0.36" yaw = "1.571" scale = "1.3"/>
+<xacro:crossbeam name="left2"  x="0.0" y =" 0.824" z = "0.36" yaw = "1.571" scale = "1.3"/>
+<xacro:crossbeam name="right1"  x="0.0" y =" -0.70" z = "0.36" yaw = "1.571" scale = "1.3"/>
+<xacro:crossbeam name="right2"  x="0.0" y =" -0.824" z = "0.36" yaw = "1.571" scale = "1.3"/>
+<xacro:crossbeam name="middle1"  x="0.0" y =" 0.18" z = "0.455" yaw = "1.571" scale = "1.0"/>
+<xacro:crossbeam name="middle2"  x="0.0" y =" -0.18" z = "0.455" yaw = "1.571" scale = "1.0"/>
 
 <xacro:macro name="tire" params="name">
 	<link name="tire_${name}_link">
         <inertial>
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
             <mass value="10"/>
-            <inertia ixx="0.13975" ixy="0.0" ixz="0.0" iyy="0.242" iyz="0.0" izz="0.13975"/>
+            <inertia ixx="0.605" ixy="0.0" ixz="0.0" iyy="0.605" iyz="0.0" izz="0.605"/>
         </inertial>
         <visual name="">
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
@@ -247,17 +237,34 @@
         <collision>
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
             <geometry>
-                <mesh filename="package://amiga_cmu_description/meshes/tire/tire.obj" scale="1.0 1.0 1.0"/>
+                <!--mesh filename="package://amiga_cmu_description/meshes/tire/tire.obj" scale="1.0 1.0 1.0"/-->
+                <cylinder radius="0.22" length="0.1"/>
             </geometry>
         </collision>
     </link>
-
+    
     <joint name="tire_${name}_joint" type="continuous">
         <origin xyz="0.0 0.0 0.0" rpy="0 0.0 0.0"/>
         <parent link="wheel_${name}_link"/>
         <child link="tire_${name}_link"/>
         <axis xyz="0.0 1.0 0.0"/>
     </joint>
+    <!--gazebo reference="tire_${name}_link">
+			<mu1 value="1.0"/>
+			<mu2 value="1.0"/>
+			<kp value="10000000.0" />
+			<kd value="1.0" />
+			<fdir1 value="1 0 0"/>
+    </gazebo>
+    <transmission name="${name}_wheel_trans" type="SimpleTransmission">
+			<type>transmission_interface/SimpleTransmission</type>
+			<actuator name="${name}_wheel_motor">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+			<joint name="${name}_wheel">
+				<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			</joint>
+    </transmission-->
 </xacro:macro>
 
 <xacro:tire name="rear_right"  />
@@ -327,7 +334,16 @@
     <axis xyz="0.0 0.0 0.0"/>
 </joint>
 
-<xacro:arg name="prefix" default=""/>
+<link name="imu_link"/>
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -1.5708 3.1416" />
+    <parent link="base_link" />
+    <child link="imu_link" />
+  </joint>
+  <gazebo reference="imu_link">
+  </gazebo>
+  
+<!--xacro:arg name="prefix" default=""/>
   <xacro:arg name="ros_namespace" default="xarm"/>
   <xacro:arg name="limited" default="false"/>
   <xacro:arg name="effort_control" default="false"/>
@@ -352,7 +368,7 @@
   <xacro:arg name="add_ee" default="false"/>     
   <xacro:arg name="model1300" default="false"/>
 
-  <!-- load xarm6 robot -->
+  <load xarm6 robot>
   <xacro:include filename="$(find xarm_description)/urdf/xarm6_robot_custom_macro.xacro" />
   <xacro:xarm6_robot prefix="$(arg prefix)" namespace="$(arg ros_namespace)" limited="$(arg limited)" 
     effort_control="$(arg effort_control)" velocity_control="$(arg velocity_control)"
@@ -367,10 +383,10 @@
     geometry_length="$(arg geometry_length)" geometry_width="$(arg geometry_width)"
     geometry_mesh_filename="$(arg geometry_mesh_filename)"
     geometry_mesh_origin_xyz="$(arg geometry_mesh_origin_xyz)" geometry_mesh_origin_rpy="$(arg geometry_mesh_origin_rpy)"
-    geometry_mesh_tcp_xyz="$(arg geometry_mesh_tcp_xyz)" geometry_mesh_tcp_rpy="$(arg geometry_mesh_tcp_rpy)" />
+    geometry_mesh_tcp_xyz="$(arg geometry_mesh_tcp_xyz)" geometry_mesh_tcp_rpy="$(arg geometry_mesh_tcp_rpy)" /--> 
 
 <!-- end effector-->
-<link name="link_endeffector">
+<!-- link name="link_endeffector">
     <inertial>
         <origin xyz="0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="0.5"/>
@@ -398,9 +414,9 @@
     <parent link="link_eef"/>
     <child link="link_endeffector"/>
     <axis xyz="0.0 0.0 0.0"/>
-</joint>
+</joint-->
 
-<gazebo>
+<!--gazebo>
     
     <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
       <updateRate>100.0</updateRate>
@@ -410,9 +426,9 @@
       <leftRearJoint>tire_rear_left_joint</leftRearJoint>
       <rightRearJoint>tire_rear_right_joint</rightRearJoint>
       <wheelSeparation>1.2192</wheelSeparation>
-      <wheelDiameter>0.44</wheelDiameter>
-      <robotBaseFrame>base_link</robotBaseFrame>
-      <torque>1000</torque>
+      <wheelDiameter>0.22</wheelDiameter>
+      <robotBaseFrame>base_footprint</robotBaseFrame>
+      <torque>10</torque>
 
       <topicName>cmd_vel</topicName>
       <odometryTopic>odom</odometryTopic>
@@ -423,16 +439,21 @@
       <topic_name_odometry>odom</topic_name_odometry>
       <topic_name_joint>joint</topic_name_joint>
 
-      <broadcastTF>false</broadcastTF>
+      <broadcastTF>true</broadcastTF>
 
       <covariance_x>0.0001</covariance_x>
       <covariance_y>0.0001</covariance_y>
       <covariance_yaw>0.01</covariance_yaw>
 
     </plugin>
-
+</gazebo-->
+<gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
   </gazebo>
-  <gazebo>
+<gazebo>
     <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
       <robotNamespace>/</robotNamespace>
       <updateRate>50.0</updateRate>
@@ -446,4 +467,20 @@
       <headingGaussianNoise>0.005</headingGaussianNoise>
     </plugin>
   </gazebo>
+
+  <!--gazebo>
+    <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
+      <robotNamespace>/</robotNamespace>
+      <updateRate>40</updateRate>
+      <bodyName>base_link</bodyName>
+      <frameId>base_link</frameId>
+      <topicName>navsat/fix</topicName>
+      <velocityTopicName>navsat/vel</velocityTopicName>
+      <referenceLatitude>$(optenv GAZEBO_WORLD_LAT 49.9)</referenceLatitude>
+      <referenceLongitude>$(optenv GAZEBO_WORLD_LON 8.9)</referenceLongitude>
+      <referenceHeading>90</referenceHeading>
+      <referenceAltitude>0</referenceAltitude>
+      <drift>0.0001 0.0001 0.0001</drift>
+    </plugin>
+  </gazebo-->
 </robot>
