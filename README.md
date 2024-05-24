@@ -1,7 +1,7 @@
 # amiga_cmu_description
 This a ROS robot description package for an amiga_robot urdf description
 ## Installation
-Install the amiga_robot description (create a PAT token on Github with [this instruction](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token))
+Install the amiga_robot description
 
 ```
 cd ~/catkin_ws/src
