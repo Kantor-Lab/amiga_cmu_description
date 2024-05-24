@@ -5,12 +5,12 @@ Install the amiga_robot description (create a PAT token on Github with [this ins
 
 ```
 cd ~/catkin_ws/src
-git clone -b ruiji https://<User Name>:<TOKEN>@github.com/Kantor-Lab/amiga_cmu_description.git
+git clone -b ruiji https://github.com/Kantor-Lab/amiga_cmu_description.git
 ```
 Install xarm_ros package
 ```
 cd ~/catkin_ws/src
-git clone -b corn_insertion https://<User Name>:<TOKEN>@github.com/Kantor-Lab/xarm_ros.git
+git clone -b corn_insertion https://github.com/Kantor-Lab/xarm_ros.git
 ```
 Update the package
 ```
