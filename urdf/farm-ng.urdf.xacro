@@ -100,11 +100,14 @@
 
 
 <!-- Wheel Creating using macros -->
-<xacro:wheel name="rear_right"  x="0.6096" y =" 0.762" yaw = "3.141"/>
+<!--xacro:wheel name="rear_right"  x="0.6096" y =" 0.762" yaw = "3.141"/>
 <xacro:wheel name="front_right" x="-0.6096" y =" 0.762" yaw = "3.141"/>
 <xacro:wheel name="front_left"  x="-0.6096" y =" -0.762" yaw = "0.0"/>
-<xacro:wheel name="rear_left"   x="0.6096" y =" -0.762" yaw = "0.0"/>
-
+<xacro:wheel name="rear_left"   x="0.6096" y =" -0.762" yaw = "0.0"/-->
+<xacro:wheel name="front_left"  x="0.6096" y =" 0.762" yaw = "3.141"/>
+<xacro:wheel name="rear_left" x="-0.6096" y =" 0.762" yaw = "3.141"/>
+<xacro:wheel name="rear_right"  x="-0.6096" y =" -0.762" yaw = "0.0"/>
+<xacro:wheel name="front_right"   x="0.6096" y =" -0.762" yaw = "0.0"/>
 <xacro:macro name="clamp" params="name">
 	<link name="clamp_${name}_link">
         <inertial>
@@ -425,9 +428,9 @@
 
       <broadcastTF>false</broadcastTF>
 
-      <covariance_x>0.0001</covariance_x>
-      <covariance_y>0.0001</covariance_y>
-      <covariance_yaw>0.01</covariance_yaw>
+      <covariance_x>0.001</covariance_x>
+      <covariance_y>0.001</covariance_y>
+      <covariance_yaw>0.001</covariance_yaw>
 
     </plugin>
 
