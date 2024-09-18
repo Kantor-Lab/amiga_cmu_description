@@ -38,7 +38,6 @@
     <child link="base_footprint"/>
     <axis xyz="0.0 0.0 0.0"/>
 </joint>
-
 <!-- All Wheel links and joints -->
 <link name="inertial_link">
     <inertial>
@@ -330,7 +329,7 @@
     <axis xyz="0.0 0.0 0.0"/>
 </joint>
 
-<xacro:arg name="prefix" default=""/>
+<!--xacro:arg name="prefix" default=""/>
   <xacro:arg name="ros_namespace" default="xarm"/>
   <xacro:arg name="limited" default="false"/>
   <xacro:arg name="effort_control" default="false"/>
@@ -353,10 +352,10 @@
   <xacro:arg name="geometry_mesh_tcp_rpy" default="0 0 0"/>
   
   <xacro:arg name="add_ee" default="false"/>     
-  <xacro:arg name="model1300" default="false"/>
+  <xacro:arg name="model1300" default="false"/-->
 
   <!-- load xarm6 robot -->
-  <xacro:include filename="$(find xarm_description)/urdf/xarm6_robot_custom_macro.xacro" />
+  <!--xacro:include filename="$(find xarm_description)/urdf/xarm6_robot_custom_macro.xacro" />
   <xacro:xarm6_robot prefix="$(arg prefix)" namespace="$(arg ros_namespace)" limited="$(arg limited)" 
     effort_control="$(arg effort_control)" velocity_control="$(arg velocity_control)"
     attach_to="$(arg attach_to)" 
@@ -370,10 +369,10 @@
     geometry_length="$(arg geometry_length)" geometry_width="$(arg geometry_width)"
     geometry_mesh_filename="$(arg geometry_mesh_filename)"
     geometry_mesh_origin_xyz="$(arg geometry_mesh_origin_xyz)" geometry_mesh_origin_rpy="$(arg geometry_mesh_origin_rpy)"
-    geometry_mesh_tcp_xyz="$(arg geometry_mesh_tcp_xyz)" geometry_mesh_tcp_rpy="$(arg geometry_mesh_tcp_rpy)" />
+    geometry_mesh_tcp_xyz="$(arg geometry_mesh_tcp_xyz)" geometry_mesh_tcp_rpy="$(arg geometry_mesh_tcp_rpy)" /-->
 
 <!-- end effector-->
-<link name="link_endeffector">
+<!--link name="link_endeffector">
     <inertial>
         <origin xyz="0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="0.5"/>
@@ -401,7 +400,7 @@
     <parent link="link_eef"/>
     <child link="link_endeffector"/>
     <axis xyz="0.0 0.0 0.0"/>
-</joint>
+</joint-->
 
 <gazebo>
     
