@@ -7,12 +7,12 @@ Install the amiga_robot description
 cd ~/catkin_ws/src
 git clone -b ruiji https://github.com/Kantor-Lab/amiga_cmu_description.git
 ```
-Install xarm_ros package (optional for current version)
+Install xarm_ros package (optional)
 ```
 cd ~/catkin_ws/src
 git clone -b corn_insertion https://github.com/Kantor-Lab/xarm_ros.git
 ```
-Update the package (optional for current version)
+Update the package (optional)
 ```
 cd ~/catkin_ws/src/xarm_ros 
 git pull
